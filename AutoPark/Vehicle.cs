@@ -7,7 +7,7 @@ namespace AutoPark
         public VehicleType Type { get; set; }
         public string ModelName { get; set; }
 
-        public Engine Engine { get; set; }
+        public AbstractEngine AbstractEngine { get; set; }
         public string RegistrationNumber { get; set; }
         public int Weight { get; set; }
         public int ManufactureYear { get; set; }
@@ -42,15 +42,15 @@ namespace AutoPark
         }
         public double GetCalcTaxPerMonth()
         {
-            if (Engine == null)
+            if (AbstractEngine == null)
                 return Weight * 0.0013 + Type.TaxCoefficient * 30 + 5;
-            return Weight * 0.0013 + Type.TaxCoefficient * Engine.TaxCoefficientByEngine * 30 + 5;
+            return Weight * 0.0013 + Type.TaxCoefficient * AbstractEngine.TaxCoefficientByEngine * 30 + 5;
         }
 
         public override string ToString()
         {
             string format;
-            if (Engine == null)
+            if (AbstractEngine == null)
             {
                 format = string.Format(
                     $"{Type.TypeName}, {ModelName}, {RegistrationNumber}, {Weight} kg, {ManufactureYear}, {Mileage} km, {Clr}, {Volume} l(kWh), \"{GetCalcTaxPerMonth().ToString("0.00")}\"");    
@@ -58,7 +58,7 @@ namespace AutoPark
             else
             {
                 format = string.Format(
-                    $"{Type.TypeName}, {ModelName}, {Engine.EngineType}, {RegistrationNumber}, {Weight} kg, {ManufactureYear}, {Mileage} km, {Clr}, {Volume} l(kWh), \"{GetCalcTaxPerMonth().ToString("0.00")}\"");
+                    $"{Type.TypeName}, {ModelName}, {AbstractEngine.EngineType}, {RegistrationNumber}, {Weight} kg, {ManufactureYear}, {Mileage} km, {Clr}, {Volume} l(Wh), \"{GetCalcTaxPerMonth().ToString("0.00")}\"");
             }
             return format;
         }

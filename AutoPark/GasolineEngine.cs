@@ -1,6 +1,6 @@
 namespace AutoPark
 {
-    public class GasolineEngine : CombustionEngine
+    public class GasolineEngine : AbstractCombustionEngine
     {
         public GasolineEngine(double engineCapacity, double fuelConsumptionPer100, int horsePowers) : base("Gasoline", 1)
         {

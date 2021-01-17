@@ -89,22 +89,22 @@ namespace AutoPark
             vehiclesWithEngine[1] = new Vehicle(vehicleTypes[0], "Volkswagen Crafter", "6427 AA-7", 2500,
                 2014, 227010, Vehicle.Color.White, 75);
             vehiclesWithEngine[2] = new Vehicle(vehicleTypes[0], "Electric Bus E321", "6785 BA-7", 12080,
-                2019, 20451, Vehicle.Color.Green, 34);
+                2019, 20451, Vehicle.Color.Green, 34000);
             vehiclesWithEngine[3] = new Vehicle(vehicleTypes[1], "Golf 5", "8682 AX-7", 1200,
                 2006, 230451, Vehicle.Color.Gray, 55);
             vehiclesWithEngine[4] = new Vehicle(vehicleTypes[1], "Tesla Model S70D", "E001 AA-7", 2200,
-                2019, 10454, Vehicle.Color.White, 70);
+                2019, 10454, Vehicle.Color.White, 70000);
             vehiclesWithEngine[5] = new Vehicle(vehicleTypes[2], "Hamm HD 12 VV", null, 3000,
                 2016, 122, Vehicle.Color.Yellow, 42);
             vehiclesWithEngine[6] = new Vehicle(vehicleTypes[3], "МТЗ Беларус-1025.4", "1145 AB-7", 1200,
                 2020, 109, Vehicle.Color.Red, 135);
-            vehiclesWithEngine[0].Engine = new GasolineEngine(2, 8.1, 75);
-            vehiclesWithEngine[1].Engine = new GasolineEngine(2.18, 8.5, 75);
-            vehiclesWithEngine[2].Engine = new ElectricalEngine(50, 150);
-            vehiclesWithEngine[3].Engine = new DieselEngine(1.6, 7.2, 55);
-            vehiclesWithEngine[4].Engine = new ElectricalEngine(25, 70);
-            vehiclesWithEngine[5].Engine = new DieselEngine(3.2, 25, 20);
-            vehiclesWithEngine[6].Engine = new DieselEngine(4.75, 20.1, 135);
+            vehiclesWithEngine[0].AbstractEngine = new GasolineEngine(2, 8.1, 75);
+            vehiclesWithEngine[1].AbstractEngine = new GasolineEngine(2.18, 8.5, 75);
+            vehiclesWithEngine[2].AbstractEngine = new ElectricalEngine(50, 150);
+            vehiclesWithEngine[3].AbstractEngine = new DieselEngine(1.6, 7.2, 55);
+            vehiclesWithEngine[4].AbstractEngine = new ElectricalEngine(25, 70);
+            vehiclesWithEngine[5].AbstractEngine = new DieselEngine(3.2, 25, 20);
+            vehiclesWithEngine[6].AbstractEngine = new DieselEngine(4.75, 20.1, 135);
             foreach (var vehicle in vehiclesWithEngine)
             {
                 Console.WriteLine(vehicle.ToString());
@@ -120,6 +120,25 @@ namespace AutoPark
                     }
                 }
             }
+            
+            DisplayLevel(4);
+            foreach (var vehicle in vehiclesWithEngine)
+            {
+                Console.WriteLine(vehicle);
+            }
+            Console.WriteLine();
+            double maxDistance = vehiclesWithEngine[0].AbstractEngine.GetMaxKilometers(vehiclesWithEngine[0].Volume);
+            int maxDistanceIndex = 0;
+            for (int i = 0; i < vehiclesWithEngine.Length; i++)
+            {
+                if (vehiclesWithEngine[i].AbstractEngine.GetMaxKilometers(vehiclesWithEngine[i].Volume) > maxDistance)
+                {
+                    maxDistance = vehiclesWithEngine[i].AbstractEngine.GetMaxKilometers(vehiclesWithEngine[i].Volume);
+                    maxDistanceIndex = i;
+                }
+            }
+            Console.WriteLine($"A vehicle that travels a longer distance: {vehiclesWithEngine[maxDistanceIndex].ToString()}");
+            
         }
 
         private static void DisplayLevel(int level)
