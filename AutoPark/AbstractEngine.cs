@@ -7,7 +7,7 @@ namespace AutoPark
 
         public int HorsePowers { get; set; }
 
-        public AbstractEngine(string engineType, double taxCoefficientByEngine)
+        protected AbstractEngine(string engineType, double taxCoefficientByEngine)
         {
             EngineType = engineType;
             TaxCoefficientByEngine = taxCoefficientByEngine;

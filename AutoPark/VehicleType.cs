@@ -5,6 +5,7 @@ namespace AutoPark
 {
     public class VehicleType
     {
+        public int VehicleTypeId { get; set; }
         public string TypeName { get; set; }
         public double TaxCoefficient { get; set; }
 

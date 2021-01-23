@@ -5,7 +5,7 @@ namespace AutoPark
         public double EngineVolume { get; set; }
         public double FuelConsumptionPer100 { get; set; }
 
-        public AbstractCombustionEngine(string engineType, double taxCoefficientByEngine) : base(engineType,
+        protected AbstractCombustionEngine(string engineType, double taxCoefficientByEngine) : base(engineType,
             taxCoefficientByEngine) { }
 
         public override double GetMaxKilometers(double fuelTankCapacity)

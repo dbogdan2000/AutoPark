@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Microsoft.VisualBasic;
 
 namespace AutoPark
 {
@@ -32,7 +34,8 @@ namespace AutoPark
             Console.WriteLine($"Max value: {max} \nAverage value: {avg}");
             foreach (var vehicleType in vehicleTypes)
             {
-                Console.WriteLine(vehicleType.ToString());
+                Console.WriteLine(vehicleType);
+                
             }
             
             DisplayLevel(2);
@@ -139,6 +142,17 @@ namespace AutoPark
             }
             Console.WriteLine($"A vehicle that travels a longer distance: {vehiclesWithEngine[maxDistanceIndex].ToString()}");
             
+            DisplayLevel(5);
+            IComparer<Vehicle> comparer = new Comparator();
+            string path = @"C:\University\Projects\DevIncubator\AutoPark\AutoPark\AutoPark";
+            Collections collection =
+                new Collections($"{path}\\type.csv", $"{path}\\vehicles.csv", $"{path}\\rents.csv");
+            collection.Print();
+            Console.WriteLine("Result of deleting vehicle:" + collection.Delete(1));
+            Console.WriteLine("Result of deleting vehicle:" + collection.Delete(4));
+            collection.Print();
+            collection.Sort(comparer);
+            collection.Print();
         }
 
         private static void DisplayLevel(int level)

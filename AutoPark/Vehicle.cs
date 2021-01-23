@@ -1,17 +1,21 @@
 using System;
+using System.Collections.Generic;
 
 namespace AutoPark
 {
     public class Vehicle : IComparable<Vehicle>
     {
+        public int VehicleId { get; set; }
         public VehicleType Type { get; set; }
         public string ModelName { get; set; }
-
         public AbstractEngine AbstractEngine { get; set; }
         public string RegistrationNumber { get; set; }
         public int Weight { get; set; }
         public int ManufactureYear { get; set; }
         public int Mileage { get; set; }
+
+        public List<Rent> Rents { get; set; }
+
         public enum Color 
         {
             White,
@@ -85,6 +89,22 @@ namespace AutoPark
             {
                 return 1;
             }
+        }
+
+        public double GetTotalIncome()
+        {
+            double sum = 0.0;
+            foreach (var rent in Rents)
+            {
+                sum += rent.RentPrice;
+            }
+
+            return sum;
+        }
+
+        public double GetTotalProfit()
+        {
+            return GetTotalIncome() - GetCalcTaxPerMonth();
         }
     }
 }
