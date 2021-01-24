@@ -153,6 +153,37 @@ namespace AutoPark
             collection.Print();
             collection.Sort(comparer);
             collection.Print();
+            
+            DisplayLevel(6);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Welcome to car wash");
+            Console.ResetColor();
+            Collections vehiclesToWash =
+                new Collections($"{path}\\type.csv", $"{path}\\vehicles.csv", $"{path}\\rents.csv");
+            Queue queue = new Queue(vehiclesToWash.Vehicles.ToArray());
+            Console.WriteLine("Cars in queue:");
+            foreach (var vehicle in queue.Vehicles)
+            {
+                Console.WriteLine(vehicle.ModelName.ToString() + " " + vehicle.RegistrationNumber);
+            }
+            Console.WriteLine();
+            queue.Enqueue(new Vehicle(vehicleTypes[1], "Mitsubishi Lancer Evolution 10", "1569 AA-1", 1560, 2015,25000, Vehicle.Color.Yellow, 55));
+            Console.WriteLine($"Vehicle {queue.Vehicles[queue.Vehicles.Length - 1].ModelName} {queue.Vehicles[queue.Vehicles.Length - 1].RegistrationNumber} was added in queue");
+            queue.Enqueue(new Vehicle(vehicleTypes[1], "Shelby Mustang GT500", "2213 AB-1", 1777, 2018, 22000,Vehicle.Color.Green, 59));
+            Console.WriteLine($"Vehicle {queue.Vehicles[queue.Vehicles.Length - 1].ModelName} {queue.Vehicles[queue.Vehicles.Length - 1].RegistrationNumber} was added in queue");
+            Console.WriteLine();
+            Console.WriteLine("Cars in queue:");
+            foreach (var vehicle in queue.Vehicles)
+            {
+                Console.WriteLine(vehicle.ModelName.ToString() + " " + vehicle.RegistrationNumber);
+            }
+            Console.WriteLine();
+            while (queue.Vehicles.Length != 0)
+            {
+                Console.WriteLine($"Vehicle {queue.Vehicles[0].ModelName} {queue.Vehicles[0].RegistrationNumber} washed");
+                queue.Dequeue();
+            }
+            Console.WriteLine("Queue is empty");
         }
 
         private static void DisplayLevel(int level)
