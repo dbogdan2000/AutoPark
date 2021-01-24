@@ -1,37 +1,39 @@
 namespace AutoPark
 {
-    public class Queue
+    public class Stack
     {
         public Vehicle[] Vehicles { get; set; }
 
-        public Queue()
+        public Stack()
         {
             Vehicles = new Vehicle[0];
         }
 
-        public Queue(Vehicle[] vehicles)
+        public Stack(Vehicle[] vehicles)
         {
             Vehicles = vehicles;
         }
 
-        public void Enqueue(Vehicle vehicle)
+        public void Push(Vehicle vehicle)
         {
             Vehicle[] tempVehicles = new Vehicle[Vehicles.Length + 1];
             for (int i = 0; i < Vehicles.Length; i++)
             {
                 tempVehicles[i] = Vehicles[i];
             }
+
             tempVehicles[tempVehicles.Length - 1] = vehicle;
             Vehicles = tempVehicles;
         }
 
-        public void Dequeue()
+        public void Pop()
         {
             Vehicle[] tempVehicles = new Vehicle[Vehicles.Length - 1];
-            for (int i = 1; i < Vehicles.Length; i++)
+            for (int i = 0; i < tempVehicles.Length; i++)
             {
-                tempVehicles[i - 1] = Vehicles[i];
+                tempVehicles[i] = Vehicles[i];
             }
+
             Vehicles = tempVehicles;
         }
     }

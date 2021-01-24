@@ -158,9 +158,9 @@ namespace AutoPark
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Welcome to car wash");
             Console.ResetColor();
-            Collections vehiclesToWash =
+            Collections vehiclesToWashAndGarage =
                 new Collections($"{path}\\type.csv", $"{path}\\vehicles.csv", $"{path}\\rents.csv");
-            Queue queue = new Queue(vehiclesToWash.Vehicles.ToArray());
+            Queue queue = new Queue(vehiclesToWashAndGarage.Vehicles.ToArray());
             Console.WriteLine("Cars in queue:");
             foreach (var vehicle in queue.Vehicles)
             {
@@ -178,12 +178,40 @@ namespace AutoPark
                 Console.WriteLine(vehicle.ModelName.ToString() + " " + vehicle.RegistrationNumber);
             }
             Console.WriteLine();
-            while (queue.Vehicles.Length != 0)
+            while (queue.Vehicles.Length > 0)
             {
                 Console.WriteLine($"Vehicle {queue.Vehicles[0].ModelName} {queue.Vehicles[0].RegistrationNumber} washed");
                 queue.Dequeue();
             }
             Console.WriteLine("Queue is empty");
+            
+            DisplayLevel(7);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Welcome to garage!");
+            Console.ResetColor();
+            Stack stack = new Stack();
+            int placesCounter = 7;
+            Console.WriteLine($"Garage is empty. {placesCounter} places left.");
+            foreach (var vehicle in vehiclesToWashAndGarage.Vehicles)
+            {
+                stack.Push(vehicle);
+                placesCounter--;
+                Console.WriteLine($"Vehicle {vehicle.ModelName} {vehicle.RegistrationNumber} drove into the garage. {placesCounter} places left");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Garage is full. Vehicles in garage:");
+            for (int i = stack.Vehicles.Length - 1; i >=0; i--)
+            {
+                Console.WriteLine($"{stack.Vehicles[i].ModelName} {stack.Vehicles[i].RegistrationNumber}");
+            }
+            Console.WriteLine();
+            while (stack.Vehicles.Length > 0)
+            {
+                placesCounter++;
+                Console.WriteLine($"Vehicle {stack.Vehicles[stack.Vehicles.Length - 1].ModelName} {stack.Vehicles[stack.Vehicles.Length - 1].RegistrationNumber} left the garage. {placesCounter} places left");
+                stack.Pop();
+            }
+            Console.WriteLine($"Garage is empty. {placesCounter} places left.");
         }
 
         private static void DisplayLevel(int level)
