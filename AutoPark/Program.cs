@@ -212,6 +212,15 @@ namespace AutoPark
                 stack.Pop();
             }
             Console.WriteLine($"Garage is empty. {placesCounter} places left.");
+            
+            DisplayLevel(8);
+            Dictionary dictionary = new Dictionary($"{path}\\orders.csv");
+            dictionary.FillDictionary();
+            Console.WriteLine("List of required parts:");
+            foreach (var detail in dictionary.Details)
+            {
+                Console.WriteLine($"{detail.Key} - {detail.Value}");
+            }
         }
 
         private static void DisplayLevel(int level)
