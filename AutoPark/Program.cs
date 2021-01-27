@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.VisualBasic;
 
 namespace AutoPark
@@ -35,8 +36,8 @@ namespace AutoPark
             foreach (var vehicleType in vehicleTypes)
             {
                 Console.WriteLine(vehicleType);
-                
             }
+            Console.WriteLine();
             
             DisplayLevel(2);
             Vehicle[] vehicles = new Vehicle[7];
@@ -144,9 +145,9 @@ namespace AutoPark
             
             DisplayLevel(5);
             IComparer<Vehicle> comparer = new Comparator();
-            string path = @"C:\University\Projects\DevIncubator\AutoPark\AutoPark\AutoPark";
+            string path = Path.GetFullPath("../../../../");
             Collections collection =
-                new Collections($"{path}\\type.csv", $"{path}\\vehicles.csv", $"{path}\\rents.csv");
+                new Collections($"{path}type.csv", $"{path}vehicles.csv", $"{path}rents.csv");
             collection.Print();
             Console.WriteLine("Result of deleting vehicle:" + collection.Delete(1));
             Console.WriteLine("Result of deleting vehicle:" + collection.Delete(4));
@@ -214,7 +215,7 @@ namespace AutoPark
             Console.WriteLine($"Garage is empty. {placesCounter} places left.");
             
             DisplayLevel(8);
-            Dictionary dictionary = new Dictionary($"{path}\\orders.csv");
+            Dictionary dictionary = new Dictionary($"{path}orders.csv");
             dictionary.FillDictionary();
             Console.WriteLine("List of required parts:");
             foreach (var detail in dictionary.Details)

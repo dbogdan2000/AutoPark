@@ -27,9 +27,10 @@ namespace AutoPark
             {
                 using (StreamReader streamReader = new StreamReader(inFile))
                 {
-                    while ((line = streamReader.ReadLine()) != null)
+                    while (!streamReader.EndOfStream)
                     {
-                        if (allLines.Equals(String.Empty))
+                        line = streamReader.ReadLine();
+                        if (string.IsNullOrEmpty(allLines))
                         {
                             allLines += line;
                         }

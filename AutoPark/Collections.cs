@@ -25,8 +25,9 @@ namespace AutoPark
                 using (StreamReader streamReader = new StreamReader(inFile, Encoding.Default))
                 {
                     string line;
-                    while ((line = streamReader.ReadLine()) != null)
+                    while (!streamReader.EndOfStream)
                     {
+                        line = streamReader.ReadLine();
                         types.Add(CreateType(line));
                     }
                 }
@@ -47,8 +48,9 @@ namespace AutoPark
                 using (StreamReader streamReader = new StreamReader(inFile,Encoding.Default))
                 {
                     string line;
-                    while ((line = streamReader.ReadLine()) != null)
+                    while (!streamReader.EndOfStream)
                     {
+                        line = streamReader.ReadLine();
                         vehicles.Add(CreateVehicle(line));
                     }
                 }
@@ -69,8 +71,9 @@ namespace AutoPark
                 {
                     string line;
                     string[] values;
-                    while ((line=streamReader.ReadLine()) != null)
+                    while (!streamReader.EndOfStream)
                     {
+                        line = streamReader.ReadLine();
                         values = line.Split(',');
                         foreach (var vehicle in Vehicles)
                         {
@@ -104,7 +107,7 @@ namespace AutoPark
             var vehicle = new Vehicle();
             vehicle.VehicleId = int.Parse(line[0]);
             vehicle.Type = new VehicleType();
-            string typesLine = @"C:\University\Projects\DevIncubator\AutoPark\AutoPark\AutoPark\type.csv";
+            string typesLine = Path.GetFullPath("../../../../type.csv");
             var types = new List<VehicleType>();
             types = LoadTypes(typesLine);
             foreach (var type in types)
