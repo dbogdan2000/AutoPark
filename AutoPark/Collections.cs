@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -65,6 +66,7 @@ namespace AutoPark
 
         public void LoadRents(string inFile)
         {
+            NumberFormatInfo numbInfo = new NumberFormatInfo() {NumberDecimalSeparator = "."};
             try
             {
                 using (StreamReader streamReader = new StreamReader(inFile,Encoding.Default))
@@ -79,7 +81,7 @@ namespace AutoPark
                         {
                             if (int.Parse(values[0]) == vehicle.VehicleId)
                             {
-                                vehicle.Rents.Add(new Rent(DateTime.Parse(values[1]), double.Parse(values[2].Replace(".", ","))));
+                                vehicle.Rents.Add(new Rent(DateTime.Parse(values[1]), double.Parse(values[2], numbInfo)));
                             }
                         }
                     }
@@ -93,16 +95,18 @@ namespace AutoPark
 
         public VehicleType CreateType(string csvString)
         {
+            NumberFormatInfo numbInfo = new NumberFormatInfo() {NumberDecimalSeparator = "."};
             string[] line = csvString.Split(',');
             var type = new VehicleType();
             type.VehicleTypeId = int.Parse(line[0]);
             type.TypeName = line[1];
-            type.TaxCoefficient = double.Parse(line[2].Replace('.', ','));
+            type.TaxCoefficient = double.Parse(line[2], numbInfo);
             return type;
         }
 
         public Vehicle CreateVehicle(string csvString)
         {
+            NumberFormatInfo numbInfo = new NumberFormatInfo() {NumberDecimalSeparator = "."};
             string[] line = csvString.Split(',');
             var vehicle = new Vehicle();
             vehicle.VehicleId = int.Parse(line[0]);
@@ -126,16 +130,16 @@ namespace AutoPark
             switch (line[8])
             {
                 case "Gasoline":
-                    vehicle.AbstractEngine = new GasolineEngine(double.Parse(line[9].Replace('.',',')), double.Parse(line[10].Replace('.',',')),
+                    vehicle.AbstractEngine = new GasolineEngine(double.Parse(line[9], numbInfo), double.Parse(line[10], numbInfo),
                         int.Parse(line[11]));
                     break;
                 case "Elecrtical":
-                    vehicle.AbstractEngine = new ElectricalEngine(double.Parse(line[10].Replace('.',',')),
+                    vehicle.AbstractEngine = new ElectricalEngine(double.Parse(line[10], numbInfo),
                         int.Parse(line[11]));
                     break;
                 case  "Diesel":
                     vehicle.AbstractEngine =
-                        new DieselEngine(double.Parse(line[9].Replace('.',',')), double.Parse(line[10].Replace('.',',')), int.Parse(line[11]));
+                        new DieselEngine(double.Parse(line[9], numbInfo), double.Parse(line[10],numbInfo), int.Parse(line[11]));
                     break;
                 default:
                     vehicle.AbstractEngine = null;
